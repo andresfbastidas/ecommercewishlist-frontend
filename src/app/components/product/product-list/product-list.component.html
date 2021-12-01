@@ -3,10 +3,15 @@
       Productos
     </div>
     <div class="card-body">
+      <form #processForm="ngForm">
         <div class="table-responsive-xl">
             <table id="tbl-list"  class="table table-bordered table-striped">
               <thead>
+                
                 <tr>
+                  <th scope="col" class="colActions">
+                    <input type="checkbox" name="chk-all" id="chk-all" [(ngModel)]="selectedAll" (change)="toggleAll(processForm)"> Seleccionar
+                </th>
                   <th scope="col">Precio</th>
                   <th scope="col">Nombre Producto</th>
                   <th scope="col">Cantidad Disponible</th>
@@ -14,6 +19,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let product of productList">
+                  <th scope="row" class="text-center">
+                    <input type="checkbox" name="chk-{{product.idProduct}}" id="chk-{{product.idProduct}}" [(ngModel)]="product.selected" (change)="checkIfAllSelected(processForm)">
+                </th>
                   <td>{{product.price}}</td>
                   <td>{{product.productName}}</td>
                   <td>{{product.productQuantity}}</td>
@@ -24,5 +32,6 @@
               </tbody>
             </table>
         </div>  
+      </form>
     </div>
 </div>

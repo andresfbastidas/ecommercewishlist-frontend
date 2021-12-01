@@ -4,6 +4,7 @@ import { WishListRequest } from 'src/app/core/models/wish-list-request';
 import { ProductService } from 'src/app/core/services/product.service';
 import { WishListService } from 'src/app/core/services/wish-list.service';
 import { DialogComponent } from '../../notification/dialog.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +13,7 @@ import { DialogComponent } from '../../notification/dialog.component';
 export class ProductListComponent implements OnInit {
 
   productList =[] as Product[];
+  selectedAll!:boolean;
   wishListRequest!: WishListRequest;
   idProduct!: number;
   username!:string;
@@ -23,7 +25,18 @@ export class ProductListComponent implements OnInit {
     
   }
 
-
+  checkIfAllSelected(f:NgForm):void {
+    this.selectedAll = Object.keys(f.controls).every(element => {
+        return (element!=='chk-all')?f.controls[element].value === true:true;
+    });
+  }//checkIfAllSelected
+  toggleAll(f:NgForm):void{
+    Object.keys(f.controls).forEach(element => {
+      if(element!=='chk-all'){
+        f.controls[element].setValue(this.selectedAll);
+      }
+    });
+  }//toggleAll
   getProductList(){
     this.productService.productList().subscribe({
       next: (response: any) =>  {

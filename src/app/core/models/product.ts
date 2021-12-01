@@ -3,4 +3,5 @@ export class Product {
     price: number = 0;
     productName: string = '';
     productQuantity: number = 0;
+    selected?:boolean;
   }
