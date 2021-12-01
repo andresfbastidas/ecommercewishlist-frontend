@@ -1,1 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.layout-header {
+    position: fixed;
+    top: 0;
+    height: 116px;
+    width: 100%;
+    padding: 0;
+    background-color: #6EC1E4;
+    z-index: 50;
+}
+
+.layout-header .page-title .part1 {
+    color: white;
+}
+
+.layout-header .page-title {
+    font-size: 30px;
+    padding-top: 30px;
+    padding-left: 20px;
+    float: left;
+}
+
+.layout-header .sesion {
+    float: right;
+    position: relative;
+    padding-top: 35px;
+    padding-right: 20px;
+}
+
+.layout-header .user-info {
+    font-size: 14px;
+    padding-top: 43px;
+    padding-left: 20px;
+    font-weight: bold;
+    float: left;
+}
+.layout-main {
+    height: auto;
+    min-height: calc(100% - 40px) !important;
+    padding: 10px;
+    padding-top: 126px;
+}
+
+.main-card>.card-header,
+.main-card>.card-footer {
+    background-color: #00B5E2;
+}
+
+
+.card-header,
+.card-footer {
+    background-color: #00B5E2;
+    font-weight: bold;
+    padding: .35rem 1rem;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
