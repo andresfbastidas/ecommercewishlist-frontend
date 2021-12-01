@@ -22,7 +22,7 @@ export class MenuBarComponent implements OnInit {
             {
               label: 'Lista de deseos', 
               icon: 'pi pi-fw pi-file',
-              routerLink: ['product-list']
+              routerLink: ['wish-list']
             }
         ]
       }
