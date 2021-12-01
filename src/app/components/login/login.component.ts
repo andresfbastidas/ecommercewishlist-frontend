@@ -21,16 +21,18 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginRequest = new LoginRequest(this.username, this.password);
-    this.authService.login(this.loginRequest).subscribe((response: any) => {
-      this.router.navigate(['/product-list']);
-    }, error => {
-      this.dialog.show({
-        title: "Error",
-        content: this.dialog.formatError(error),
-        type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(error)}`
-      });
-    }
-    );
+    this.authService.login(this.loginRequest).subscribe({
+      next: (response: any) =>  {
+        this.router.navigate(['/product-list']);
+      },
+      error: (err) => {
+        this.dialog.show({
+          title: "Error",
+          content: this.dialog.formatError(err),
+          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+        });
+      }
+    });
   }
 
 }

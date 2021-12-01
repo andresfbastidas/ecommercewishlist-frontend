@@ -19,8 +19,8 @@ export class AuthService {
   }
   return this.httpClient.post<any>(`${this.urlEndPoint}/user/authenticate`, allRequest).pipe(
     map((response: any) => response),
-    catchError(e => {
-        return throwError(e);
+    catchError(error => {
+      return throwError(() => error);
     })
 );
   }

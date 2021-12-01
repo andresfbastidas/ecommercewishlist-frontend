@@ -2,7 +2,7 @@ import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from, throwError, catchError, } from 'rxjs';
+import { Observable, from, throwError, catchError, lastValueFrom, firstValueFrom} from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LoaderService } from '../services/loader.service';
@@ -30,8 +30,8 @@ export class ResponseHttp implements HttpInterceptor {
   }// intercept
 
   async inter(req: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<Event>> {
-    ++this.calls;
-    const result = next.handle(req).toPromise();
+    this.calls;
+    const result = lastValueFrom(next.handle(req));
 
     result.finally(() => {
       --this.calls;

@@ -17,15 +17,18 @@ export class ProductListComponent implements OnInit {
   }
 
   getProductList(){
-    this.productService.productList().subscribe((response: any) => {
-      this.productList = response.productList;
-    }, error => {
-      this.dialog.show({
-        title: "Error",
-        content: this.dialog.formatError(error),
-        type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(error)}`
-      });
-    }
+    this.productService.productList().subscribe({
+      next: (response: any) =>  {
+        this.productList = response.productList;
+      },
+      error: (err) => {
+        this.dialog.show({
+          title: "Error",
+          content: this.dialog.formatError(err),
+          type: "error", footer: new Date().toLocaleString(), textTech: `${this.dialog.formatError(err)}`
+        });
+      }
+    }, 
     );
   }
 

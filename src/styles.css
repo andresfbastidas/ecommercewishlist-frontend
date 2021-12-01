@@ -60,7 +60,13 @@ body {
     padding: .35rem 1rem;
 }
 
-
+.layout-menu {
+    position: fixed;
+    margin-top: 117px;
+    z-index: 10000 !important;
+    top: 0;
+    height: 100%;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

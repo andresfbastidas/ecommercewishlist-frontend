@@ -15,8 +15,8 @@ export class ProductService {
   productList(): Observable<any> {
     return this.httpClient.get<any>(`${this.urlEndPoint}/product/findAllProducts`).pipe(
       map((response: any) => response),
-      catchError(e => {
-        return throwError(e);
+      catchError(error => {
+        return throwError(() => error);
       })
     );
   }

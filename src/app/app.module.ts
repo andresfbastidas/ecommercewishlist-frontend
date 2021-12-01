@@ -14,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ResponseHttp } from './core/interceptors/response-http.interceptor';
 import { DialogModule } from './components/notification/dialog.module';
 import { DialogComponent } from './components/notification/dialog.component';
+import { MenuBarComponent } from './components/menubar/menu-bar-component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DialogComponent } from './components/notification/dialog.component';
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    ProductListComponent
+    ProductListComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,
