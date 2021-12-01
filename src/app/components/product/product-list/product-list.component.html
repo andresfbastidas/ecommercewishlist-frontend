@@ -1,1 +1,25 @@
-<p>product-list works!</p>
+<div id="list-component" class="card mx-auto mat-elevation-z2">
+    <div class="card-header" id="title-form">
+      Productos
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-xl">
+            <table id="tbl-list"  class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Nombre Producto</th>
+                  <th scope="col">Cantidad Disponible</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productList">
+                  <td>{{product.price}}</td>
+                  <td>{{product.productName}}</td>
+                  <td>{{product.productQuantity}}</td>
+                </tr>              
+              </tbody>
+            </table>
+        </div>  
+    </div>
+</div>
