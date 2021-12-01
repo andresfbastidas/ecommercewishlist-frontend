@@ -9,13 +9,19 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MenuModule} from 'primeng/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ResponseHttp } from './core/interceptors/response-http.interceptor';
+import { DialogModule } from './components/notification/dialog.module';
+import { DialogComponent } from './components/notification/dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +29,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MenuModule
+    MenuModule,
+    HttpClientModule,
+    DialogModule
   ],
-  providers: [],
+  providers: [DialogComponent,{ provide: HTTP_INTERCEPTORS, useClass: ResponseHttp, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

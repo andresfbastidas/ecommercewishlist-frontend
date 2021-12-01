@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendBasePath: 'http://localhost:8091/EcommerceWishList/api/1.0',
+  maxFileSize: 6, //in MB
+  maxFileSizeName: 50
 };
 
 /*
