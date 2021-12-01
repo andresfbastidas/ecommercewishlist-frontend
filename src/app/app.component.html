@@ -4,7 +4,14 @@
       <div class="card mx-auto main-card">
           <div class="card-header" id="title-page">{{title}}</div>
           <div class="card-body">
-              <router-outlet ></router-outlet>
+          <div class="row">
+           <div class="col-lg-2">
+            <app-menubar></app-menubar>
+           </div>
+           <div class="col-lg-10">
+            <router-outlet ></router-outlet>
+           </div>
+          </div>
               <div class="text-center text-warning"></div>
           </div>
       </div>

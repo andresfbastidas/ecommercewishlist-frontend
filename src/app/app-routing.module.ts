@@ -7,7 +7,7 @@ import { ProductWishlistComponent } from './components/wish-list/product-wishlis
 const routes: Routes = [
   { path: '', redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
-  { path: 'product-list', component: ProductListComponent },
+  { path: 'product-list',data: {title: 'Listado de productos'}, component: ProductListComponent },
   { path: 'wish-list', component: ProductWishlistComponent },
 ];
 
