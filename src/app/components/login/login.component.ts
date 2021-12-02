@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/core/models/login-request';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ShareDataService } from 'src/app/core/services/share-data.service';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { DialogComponent } from '../notification/dialog.component';
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   password!: string;
   loginRequest!: LoginRequest;
   constructor(private authService: AuthService, private readonly router: Router,
-    private readonly dialog: DialogComponent, private shareDataService:ShareDataService) { }
+    private readonly dialog: DialogComponent, private shareDataService:ShareDataService,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.updateData();
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
     this.loginRequest = new LoginRequest(this.username, this.password);
     this.authService.login(this.loginRequest).subscribe({
       next: (response: any) =>  {
-        console.log(response.username);
+        this.tokenStorage.saveToken(response.accessToken);
+        this.tokenStorage.saveUser(response);
         this.username=response.username;
         this.updateData();
         this.router.navigate(['/product-list']);

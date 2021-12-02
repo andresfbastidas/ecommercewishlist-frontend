@@ -25,4 +25,8 @@ export class AuthService {
 );
   }
 
+  public getUser(): string | null {
+    return window.sessionStorage.getItem("auth-user");
+  }
+
 }

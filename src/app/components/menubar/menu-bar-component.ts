@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { AuthService } from 'src/app/core/services/auth.service';
+
 @Component({
   selector: 'app-menubar',
   templateUrl: './menu-bar-component.html'
@@ -7,9 +9,16 @@ import {MenuItem} from 'primeng/api';
 export class MenuBarComponent implements OnInit {
 
   items!: MenuItem[];
-  constructor() { }
+  isLoggedIn = false;
+
+  constructor(public readonly authService:AuthService) { }
 
   ngOnInit(): void {
+    const user = this.authService.getUser();
+    if(user!=null){
+      this.isLoggedIn=true;
+    }
+    
     this.items = [
       {
         label: 'Productos',
