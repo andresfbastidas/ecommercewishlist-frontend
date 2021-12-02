@@ -5,6 +5,8 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { WishListService } from 'src/app/core/services/wish-list.service';
 import { DialogComponent } from '../../notification/dialog.component';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ShareDataService } from 'src/app/core/services/share-data.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,21 +16,36 @@ export class ProductListComponent implements OnInit {
 
   productList =[] as Product[];
   selectedAll!:boolean;
-  wishListRequest!: WishListRequest;
+  addWishListRequest!: WishListRequest;
   idProduct!: number;
   username!:string;
-  constructor(private productService:ProductService, private readonly dialog: DialogComponent, private wishListService:WishListService) { }
+  checkedList: any = 0;
+  dataUsername!:Array<string>;
+  constructor(private productService:ProductService, private readonly dialog: DialogComponent, 
+    private wishListService:WishListService, private shareDataService:ShareDataService) { }
 
   ngOnInit(): void {
     this.getProductList();
-    this.productList
-    
+    this.shareDataService.castUser.subscribe(
+      user => (this.dataUsername=user)
+    );
+  }
+
+  getCheckedItemList() {
+    this.checkedList = [];
+    for (var i = 0; i < this.productList.length; i++) {
+      if (this.productList[i].isSelected) {
+        this.checkedList.push(this.productList[i]);
+        this.idProduct =this.productList[i].idProduct;
+      }
+    }
   }
 
   checkIfAllSelected(f:NgForm):void {
     this.selectedAll = Object.keys(f.controls).every(element => {
         return (element!=='chk-all')?f.controls[element].value === true:true;
     });
+    this.getCheckedItemList();
   }//checkIfAllSelected
   toggleAll(f:NgForm):void{
     Object.keys(f.controls).forEach(element => {
@@ -40,10 +57,7 @@ export class ProductListComponent implements OnInit {
   getProductList(){
     this.productService.productList().subscribe({
       next: (response: any) =>  {
-        this.productList = response.productList;
-        console.log(this.productList);
-        this.productList.values();
-        this.productList[0].idProduct;
+        this.productList = response.productList;  
       },
       error: (err) => {
         this.dialog.show({
@@ -56,11 +70,13 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+
   addProductWishList(){
-    this.wishListRequest = new WishListRequest(this.idProduct, this.username);
-    this.wishListService.addProduct(this.wishListRequest).subscribe({
+    this.username=this.dataUsername[0];
+    console.log(this.username);
+    this.addWishListRequest = new WishListRequest(this.idProduct, this.username);
+    this.wishListService.addProduct(this.addWishListRequest).subscribe({
       next: (response: any) =>  {
-        
       },
       error: (err) => {
         this.dialog.show({

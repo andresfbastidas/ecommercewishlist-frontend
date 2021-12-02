@@ -1,7 +1,7 @@
 export class Product {
-    idProduct: string = '';
+    idProduct: number=0;
     price: number = 0;
     productName: string = '';
     productQuantity: number = 0;
-    selected?:boolean;
+    isSelected!:boolean;
   }

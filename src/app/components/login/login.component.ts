@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/core/models/login-request';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ShareDataService } from 'src/app/core/services/share-data.service';
 import { DialogComponent } from '../notification/dialog.component';
 
 @Component({
@@ -14,15 +15,24 @@ export class LoginComponent implements OnInit {
   password!: string;
   loginRequest!: LoginRequest;
   constructor(private authService: AuthService, private readonly router: Router,
-    private readonly dialog: DialogComponent) { }
+    private readonly dialog: DialogComponent, private shareDataService:ShareDataService) { }
 
   ngOnInit(): void {
+    this.updateData();
+  }
+
+  updateData() {
+    const update = [this.username];
+    this.shareDataService.updateDataAuthService(update);
   }
 
   login() {
     this.loginRequest = new LoginRequest(this.username, this.password);
     this.authService.login(this.loginRequest).subscribe({
       next: (response: any) =>  {
+        console.log(response.username);
+        this.username=response.username;
+        this.updateData();
         this.router.navigate(['/product-list']);
       },
       error: (err) => {

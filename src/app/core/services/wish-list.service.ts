@@ -21,10 +21,10 @@ export class WishListService {
     );
   }
 
-  addProduct(wishListRequest:WishListRequest): Observable<any> {
+  addProduct(addWishListRequest:WishListRequest): Observable<any> {
     const allRequest: any = {
-      idProduct: wishListRequest.idProduct,
-      userName: wishListRequest.userName
+      idProduct: addWishListRequest.idProduct,
+      userName: addWishListRequest.userName
   }
   return this.httpClient.post<any>(`${this.urlEndPoint}/wishList/addProductWishList`, allRequest).pipe(
     map((response: any) => response),
