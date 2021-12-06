@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   updateData() {
     const update = [this.username];
     this.shareDataService.updateDataAuthService(update);
+    console.log(update);
   }
 
   login() {
@@ -34,8 +35,10 @@ export class LoginComponent implements OnInit {
       next: (response: any) =>  {
         this.tokenStorage.saveToken(response.accessToken);
         this.tokenStorage.saveUser(response);
+       
         this.username=response.username;
-        this.updateData();
+        
+       this.updateData();
         this.router.navigate(['/product-list']);
       },
       error: (err) => {

@@ -5,8 +5,8 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { WishListService } from 'src/app/core/services/wish-list.service';
 import { DialogComponent } from '../../notification/dialog.component';
 import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ShareDataService } from 'src/app/core/services/share-data.service';
+import { SharedService } from 'src/app/core/services/shared.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,13 +22,14 @@ export class ProductListComponent implements OnInit {
   checkedList: any = 0;
   dataUsername!:Array<string>;
   constructor(private productService:ProductService, private readonly dialog: DialogComponent, 
-    private wishListService:WishListService, private shareDataService:ShareDataService) { }
+    private wishListService:WishListService, private shareDataService:ShareDataService, private readonly sharedService:SharedService) { }
 
   ngOnInit(): void {
     this.getProductList();
     this.shareDataService.castUser.subscribe(
       user => (this.dataUsername=user)
     );
+    this.username=this.dataUsername[0];
   }
 
   getCheckedItemList() {
@@ -73,10 +74,10 @@ export class ProductListComponent implements OnInit {
 
   addProductWishList(){
     this.username=this.dataUsername[0];
-    console.log(this.username);
     this.addWishListRequest = new WishListRequest(this.idProduct, this.username);
     this.wishListService.addProduct(this.addWishListRequest).subscribe({
       next: (response: any) =>  {
+        this.sharedService.msgInfo('Producto añadido a la lista de deseos');
       },
       error: (err) => {
         this.dialog.show({

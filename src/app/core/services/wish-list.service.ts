@@ -33,4 +33,17 @@ export class WishListService {
     })
 );
   }
+
+  deleteProductWishList(wishListRequest:WishListRequest): Observable<any> {
+    const allRequest: any = {
+      idProduct: wishListRequest.idProduct,
+      userName: wishListRequest.userName
+  }
+  return this.httpClient.post<any>(`${this.urlEndPoint}/wishList/deleteProductById`, allRequest).pipe(
+    map((response: any) => response),
+    catchError(error => {
+      return throwError(() => error);
+    })
+);
+  }
 }
